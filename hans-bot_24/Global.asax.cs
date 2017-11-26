@@ -18,6 +18,9 @@ namespace hans_bot_24
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            DiscordBot.StartUp();
+            
+
         }
     }
 }

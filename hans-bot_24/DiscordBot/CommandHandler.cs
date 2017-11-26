@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace hansbot
+namespace hans_bot_24
 {
     public class CommandHandler
     {

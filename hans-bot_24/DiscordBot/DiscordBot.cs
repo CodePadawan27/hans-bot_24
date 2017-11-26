@@ -3,11 +3,11 @@ using Discord;
 using Discord.WebSocket;
 using System.Threading.Tasks;
 
-namespace hansbot
+namespace hans_bot_24
 {
-    public class Program
+    public class DiscordBot
     {
-        static void Main(string[] args) => new Program().StartAsync().GetAwaiter().GetResult();
+        public static void StartUp() => new DiscordBot().StartAsync().GetAwaiter().GetResult();
 
         private DiscordSocketClient _client;
         private CommandHandler _handler;
