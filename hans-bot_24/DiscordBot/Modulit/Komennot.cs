@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace hansbot.Modulit
+namespace hans_bot_24
 {
     public class Komennot : ModuleBase<SocketCommandContext>
     {

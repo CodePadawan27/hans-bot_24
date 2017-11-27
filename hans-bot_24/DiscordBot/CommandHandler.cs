@@ -16,7 +16,8 @@ namespace hans_bot_24
         {
             _client = client;
             _service = new CommandService();
-            _service.AddModulesAsync(Assembly.GetEntryAssembly());
+            //_service.AddModulesAsync(Assembly.GetEntryAssembly());
+            _service.AddModulesAsync(typeof(Komennot).Assembly);
             _client.MessageReceived += HandleCommandAsync;
         }
 

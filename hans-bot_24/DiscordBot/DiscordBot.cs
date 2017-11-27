@@ -18,7 +18,7 @@ namespace hans_bot_24
             await _client.LoginAsync(TokenType.Bot, "Mzc3NzQ0NTEzMzU3MDUzOTUy.DOTNag.cunIt9A0uHwOh7PT12QTgUJKTfQ");
             await _client.StartAsync();
             _handler = new CommandHandler(_client);
-            await Task.Delay(-1);
+            //await Task.Delay(-1);
         }   
     }
 }
