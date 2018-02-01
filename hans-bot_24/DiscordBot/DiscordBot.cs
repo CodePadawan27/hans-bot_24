@@ -19,6 +19,15 @@ namespace hans_bot_24
             await _client.StartAsync();
             _handler = new CommandHandler(_client);
             //await Task.Delay(-1);
-        }   
+
+            _client.MessageReceived += _client_MessageReceived;
+        }
+
+        private Task _client_MessageReceived(SocketMessage msg) {
+            if (msg.Content.StartsWith("```cs")) {
+                msg.Channel.SendMessageAsync("Aikamoista");
+            }
+            return (Task.FromResult(0));
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using Flee.CalcEngine.PublicTypes;
+using Flee.PublicTypes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,14 +20,6 @@ namespace hans_bot_24
             await Context.Message.DeleteAsync();
             await Context.Channel.SendMessageAsync(repeat);
             
-        }
-
-        public async Task Kehuminen()
-        {
-            if (Context.Channel.CachedMessages.Equals("```cs"))
-            {
-                await Context.Channel.SendMessageAsync("Aikamoista");
-            }
         }
 
         //Valitsee hanskaskun listasta ja sanoo sen
@@ -53,11 +47,35 @@ namespace hans_bot_24
             await Context.Channel.SendMessageAsync((string)kaskut[valittukaskuIndeksi]);
         }
         //Hans-bot laskee laskun annetuilla parametreilla
-        [Command("hansmitäon")]
-        public async Task Hanslasku([Remainder] double a, double b)
-        {
-            Random rand = new Random();
+        [Command("hansmitaon")]
+        public async Task Hanslaskuri([Remainder] string lasku) {
+            try {
+                ExpressionContext context = new ExpressionContext();
+                IDynamicExpression e = context.CompileDynamic(lasku);
+                var vastaus = e.Evaluate();
 
+                Random rand = new Random();
+                List<string> laskukommentit = new List<string> {
+                "Bitch please. Vastaus on ",
+                "No sehän on selvästi ",
+                "Etkö osaa itse? Sehän on ",
+                "Luulisi tuolla kokemuksella jo osaavan. Sehän on "
+            };
+
+                int valittukaskuIndeksi = rand.Next(laskukommentit.Count);
+                await Context.Channel.SendMessageAsync(laskukommentit[valittukaskuIndeksi] + vastaus.ToString());
+            }
+            catch (ExpressionCompileException ex) {
+                // Handle expression compile error
+                if (ex.Reason == CompileExceptionReason.SyntaxError)
+                    await Context.Channel.SendMessageAsync("Check your expression syntax");
+            }
+        }
+
+        //Hans-bot laskee laskun annetuilla parametreilla
+        [Command("hansmitäon")]
+        public async Task Hanslasku(double a, double b) {
+            Random rand = new Random();
             List<string> laskukommentit = new List<string> {
                 "Bitch please. Vastaus on ",
                 "No sehän on selvästi ",
@@ -66,9 +84,7 @@ namespace hans_bot_24
             };
 
             int valittukaskuIndeksi = rand.Next(laskukommentit.Count);
-
-            await Context.Channel.SendMessageAsync((string)laskukommentit[valittukaskuIndeksi] + (a+b));
-
+            await Context.Channel.SendMessageAsync(laskukommentit[valittukaskuIndeksi] + (a + b));
         }
 
         //TODO 
