@@ -47,7 +47,7 @@ namespace hans_bot_24
             await Context.Channel.SendMessageAsync((string)kaskut[valittukaskuIndeksi]);
         }
         //Hans-bot laskee laskun annetuilla parametreilla
-        [Command("hansmitaon")]
+        [Command("hansmitäon")]
         public async Task Hanslaskuri([Remainder] string lasku) {
             try {
                 ExpressionContext context = new ExpressionContext();
@@ -56,35 +56,20 @@ namespace hans_bot_24
 
                 Random rand = new Random();
                 List<string> laskukommentit = new List<string> {
-                "Bitch please. Vastaus on ",
-                "No sehän on selvästi ",
-                "Etkö osaa itse? Sehän on ",
-                "Luulisi tuolla kokemuksella jo osaavan. Sehän on "
+                "Bitch please. Vastaus laskutoimitukseen on ",
+                "Hih, no sehän on selvästi ",
+                "Etkö nyt osaa jo itse? Sehän on ",
+                "Luulisi nyt tuolla ohjelmointikokemuksella jo osaavan. Sehän on "
             };
 
                 int valittukaskuIndeksi = rand.Next(laskukommentit.Count);
-                await Context.Channel.SendMessageAsync(laskukommentit[valittukaskuIndeksi] + vastaus.ToString());
+                await Context.Channel.SendMessageAsync(laskukommentit[valittukaskuIndeksi] + vastaus.ToString() + ".");
             }
             catch (ExpressionCompileException ex) {
                 // Handle expression compile error
                 if (ex.Reason == CompileExceptionReason.SyntaxError)
-                    await Context.Channel.SendMessageAsync("Check your expression syntax");
+                    await Context.Channel.SendMessageAsync("Nyt en oikein käsitä mitä tarkoitat.");
             }
-        }
-
-        //Hans-bot laskee laskun annetuilla parametreilla
-        [Command("hansmitäon")]
-        public async Task Hanslasku(double a, double b) {
-            Random rand = new Random();
-            List<string> laskukommentit = new List<string> {
-                "Bitch please. Vastaus on ",
-                "No sehän on selvästi ",
-                "Etkö osaa itse? Sehän on ",
-                "Luulisi tuolla kokemuksella jo osaavan. Sehän on "
-            };
-
-            int valittukaskuIndeksi = rand.Next(laskukommentit.Count);
-            await Context.Channel.SendMessageAsync(laskukommentit[valittukaskuIndeksi] + (a + b));
         }
 
         //TODO 
