@@ -19,16 +19,16 @@ namespace hans_bot_24
         {
             await Context.Message.DeleteAsync();
             await Context.Channel.SendMessageAsync(repeat);
-            
+
         }
 
         //Valitsee hanskaskun listasta ja sanoo sen
         [Command("hanskasku")]
         public async Task HansKasku()
         {
-            
+
             Random rand = new Random();
-            
+
             List<string> kaskut = new List<string> {
                 "Hyvä!",
                 "Saakeli!",
@@ -48,13 +48,17 @@ namespace hans_bot_24
         }
         //Hans-bot laskee laskun annetuilla parametreilla
         [Command("hansmitäon")]
-        public async Task Hanslaskuri([Remainder] string lasku) {
-            try {
+        public async Task Hanslaskuri([Remainder] string lasku)
+        {
+            Random rand = new Random();
+
+            try
+            {
                 ExpressionContext context = new ExpressionContext();
                 IDynamicExpression e = context.CompileDynamic(lasku);
                 var vastaus = e.Evaluate();
 
-                Random rand = new Random();
+
                 List<string> laskukommentit = new List<string> {
                 "Bitch please. Vastaus laskutoimitukseen on ",
                 "Hih, no sehän on selvästi ",
@@ -65,10 +69,20 @@ namespace hans_bot_24
                 int valittukaskuIndeksi = rand.Next(laskukommentit.Count);
                 await Context.Channel.SendMessageAsync(laskukommentit[valittukaskuIndeksi] + vastaus.ToString() + ".");
             }
-            catch (ExpressionCompileException ex) {
-                // Handle expression compile error
+            catch (ExpressionCompileException ex)
+            {
+                List<string> eitiedakommentit = new List<string> {
+                "Nyt en oikein käsitä mitä tarkoitat.",
+                "Odota hetki, käyn tarkistamassa.",
+                "Nyt en ehdit valitettavasti auttaa.",
+                "Voitko kysyä joltain muulta opettajalta?",
+                "Anteeksi, mutta nyt on hieman kiire."
+            };
+
+                int valittueitiedaIndeksi = rand.Next(eitiedakommentit.Count);
+                // Jos hans-bot ei pysty vastaamaan
                 if (ex.Reason == CompileExceptionReason.SyntaxError)
-                    await Context.Channel.SendMessageAsync("Nyt en oikein käsitä mitä tarkoitat.");
+                    await Context.Channel.SendMessageAsync(eitiedakommentit[valittueitiedaIndeksi]);
             }
         }
 
@@ -84,7 +98,7 @@ namespace hans_bot_24
                             "\n!hans - toistan kaiken mitä sanot" +
                             "\n!hanskasku - kerron sinulle yhden viisauksistani";
 
-            await Context.Channel.SendMessageAsync(helppi);  
+            await Context.Channel.SendMessageAsync(helppi);
         }
 
     }
