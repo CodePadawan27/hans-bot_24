@@ -11,24 +11,64 @@ namespace hans_bot_24
     public class Komennot : ModuleBase<SocketCommandContext>
     {
 
-        //Toistaa mitä pyydetään
+        //Toistaa mitä pyydetään 
         [Command("hans")]
         public async Task Vastaus([Remainder] string repeat)
         {
+            await Context.Message.DeleteAsync();
             await Context.Channel.SendMessageAsync(repeat);
+            
+        }
+
+        public async Task Kehuminen()
+        {
+            if (Context.Channel.CachedMessages.Equals("```cs"))
+            {
+                await Context.Channel.SendMessageAsync("Aikamoista");
+            }
         }
 
         //Valitsee hanskaskun listasta ja sanoo sen
         [Command("hanskasku")]
         public async Task HansKasku()
         {
+            
             Random rand = new Random();
             
-            List<string> kaskut = new List<string> { "Hipsut", "Oispa kaljaa", "Olinpa höpsö","SQL is the way to go", "Heh heh koodaaminen on hauskaa", "SQL-kielessä on primääriavain ja viiteavain", "Onpa meillä täällä hauskaa" };
+            List<string> kaskut = new List<string> {
+                "Hyvä!",
+                "Saakeli!",
+                "CSS on pain in the ass",
+                "Hipsut",
+                "Oispa kaljaa",
+                "Olinpa höpsö",
+                "SQL is the way to go",
+                "Heh heh koodaaminen on hauskaa",
+                "SQL-kielessä on primääriavain ja viiteavain",
+                "Onpa meillä täällä hauskaa"
+            };
 
             int valittukaskuIndeksi = rand.Next(kaskut.Count);
 
             await Context.Channel.SendMessageAsync((string)kaskut[valittukaskuIndeksi]);
+        }
+        //Hans-bot laskee laskun annetuilla parametreilla
+        [Command("hansmitäon")]
+        public async Task Hanslasku([Remainder] double a, double b)
+        {
+            Random rand = new Random();
+
+            List<string> laskukommentit = new List<string> {
+                "Bitch please. Vastaus on ",
+                "No sehän on selvästi ",
+                "Etkö osaa itse? Sehän on ",
+                "Luulisi tuolla kokemuksella jo osaavan. Sehän on "
+            };
+
+            int valittukaskuIndeksi = rand.Next(laskukommentit.Count);
+
+            await Context.Channel.SendMessageAsync((string)laskukommentit[valittukaskuIndeksi] + (a+b));
+
         }
 
         //TODO 
