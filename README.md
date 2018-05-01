@@ -1,2 +1,2 @@
 # Hans-Bot 24
-This is a bot for Discord to honour our teacher.
+This is a C# based bot for Discord to honour our teacher.
